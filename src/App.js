@@ -8,6 +8,7 @@ function App() {
   const [input, setInput] = useState();
   const [memory, setMemory] = useState()
   const [op, setOp] = useState('')
+  const [m2, setM2] = useState()
 
   function selfInput(value){
     console.log(value)
@@ -30,15 +31,34 @@ function App() {
   }
 
   function eqAction(){
-    if(!isNaN(input)){
+    if(input===memory){
       switch(op){
         case '+':
-          setInput(input+memory)
-          setMemory(0)
+          let resultAdd = memory+m2
+          setInput(resultAdd)
+          setMemory(resultAdd)
           break;
         case '-':
-          setInput(memory-input)
+          let resultSub = memory-m2
+          setInput(resultSub)
+          setMemory(resultSub)
+          break;
+        default:
           setMemory(0)
+      }
+    }else
+    if(!isNaN(input)){
+      setM2(input)
+      switch(op){
+        case '+':
+          let resultAdd = input+memory
+          setInput(resultAdd)
+          setMemory(resultAdd)
+          break;
+        case '-':
+          let resultSub = memory-input
+          setInput(resultSub)
+          setMemory(resultSub)
           break;
         default:
           setMemory(0)
@@ -47,6 +67,7 @@ function App() {
   }
 
   function reset(){
+    setM2(NaN)
     setMemory(NaN)
     setOp('')
     setInput(NaN)
